@@ -30,3 +30,19 @@ class AuthFailedException(HTTPException):
             detail=detail if detail else "Authenticate failed",
             headers={"WWW-Authenticate": "Bearer"},
         )
+
+class NotFoundException(HTTPException):
+    def __init__(self, detail: Any = None) -> None:
+        print("inside excep")
+        print(detail)
+        super().__init__(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=detail if detail else "Not found",
+        )
+
+class ForbiddenException(HTTPException):
+    def __init__(self, detail: Any = None) -> None:
+        super().__init__(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail=detail if detail else "Forbidden",
+        )
