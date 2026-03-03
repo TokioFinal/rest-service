@@ -20,7 +20,6 @@ def delete_post(post_id :int , token):
     handle_responses(res)
 
 def update_post(post_id :int, data :postUpdate, token):
-    print("print inside update #####################################################")
     res = requests.patch("{0}/posts/{1}".format(settings.POST_SERVICE_URL,post_id),data=data, headers={"Authorization": token} )
     if res.status_code == 200:
         return res.json()

@@ -33,8 +33,6 @@ class AuthFailedException(HTTPException):
 
 class NotFoundException(HTTPException):
     def __init__(self, detail: Any = None) -> None:
-        print("inside excep")
-        print(detail)
         super().__init__(
             status_code=status.HTTP_404_NOT_FOUND,
             detail=detail if detail else "Not found",
