@@ -39,7 +39,7 @@ def test_valid_create(mock_post, skip_auth, valid_create_data, valid_create_resp
     assert data["content"] == valid_create_response_data["content"]
     assert data["author"] == valid_create_response_data["author"]
     assert data["id"] == valid_create_response_data["id"]
-    mock_post.assert_called_once_with(settings.POST_SERVICE_URL + client_url, data=postCreate(**valid_create_data), headers=mock_header)
+    mock_post.assert_called_once_with(settings.POST_SERVICE_URL + client_url, data=postCreate(**valid_create_data).model_dump_json(), headers=mock_header)
 
 
 @patch('app.clients.post_service.requests.post')
@@ -54,7 +54,7 @@ def test_create_existing_post(mock_post, skip_auth, existing_create_data, post_a
     data = response.json()
     assert response.status_code == 400
     assert data["detail"] == post_already_exists_response["detail"]
-    mock_post.assert_called_once_with(settings.POST_SERVICE_URL + client_url, data=postCreate(**existing_create_data), headers=mock_header)
+    mock_post.assert_called_once_with(settings.POST_SERVICE_URL + client_url, data=postCreate(**existing_create_data).model_dump_json(), headers=mock_header)
 
 
 def test_create_should_require_auth(valid_create_data):
@@ -135,7 +135,7 @@ def test_valid_update(mock_post, skip_auth, valid_update_data, valid_update_resp
     assert data["content"] == valid_update_response_data["content"]
     assert data["author"] == valid_update_response_data["author"]
     assert data["id"] == valid_update_response_data["id"]
-    mock_post.assert_called_once_with(settings.POST_SERVICE_URL + client_url, data=postUpdate(**valid_update_data), headers=mock_header)
+    mock_post.assert_called_once_with(settings.POST_SERVICE_URL + client_url, data=postUpdate(**valid_update_data).model_dump_json(), headers=mock_header)
 
 @patch('app.clients.post_service.requests.patch')
 def test_not_found_update(mock_post, skip_auth, valid_update_data, post_not_found_response, mock_header):
@@ -149,7 +149,7 @@ def test_not_found_update(mock_post, skip_auth, valid_update_data, post_not_foun
     data = response.json()
     assert response.status_code == 404
     assert data["detail"] == post_not_found_response["detail"]
-    mock_post.assert_called_once_with(settings.POST_SERVICE_URL + client_url, data=postUpdate(**valid_update_data), headers=mock_header)
+    mock_post.assert_called_once_with(settings.POST_SERVICE_URL + client_url, data=postUpdate(**valid_update_data).model_dump_json(), headers=mock_header)
 
 @patch('app.clients.post_service.requests.patch')
 def test_forbidden_update(mock_post, skip_auth, valid_update_data, forbidden_response, mock_header):
@@ -163,7 +163,7 @@ def test_forbidden_update(mock_post, skip_auth, valid_update_data, forbidden_res
     data = response.json()
     assert response.status_code == 403
     assert data["detail"] == forbidden_response["detail"]
-    mock_post.assert_called_once_with(settings.POST_SERVICE_URL + client_url, data=postUpdate(**valid_update_data), headers=mock_header)
+    mock_post.assert_called_once_with(settings.POST_SERVICE_URL + client_url, data=postUpdate(**valid_update_data).model_dump_json(), headers=mock_header)
 
 def test_update_should_require_auth( ):
     client_url = "/posts/1"

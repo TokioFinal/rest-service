@@ -5,7 +5,7 @@ from app.schemas.posts import postCreate, postUpdate
 from app.utils import handle_responses
 
 def create_post(data :postCreate , token):
-    res = requests.post("{0}/post".format(settings.POST_SERVICE_URL), data=data, headers={"Authorization": token} )
+    res = requests.post("{0}/post".format(settings.POST_SERVICE_URL), data=data.model_dump_json(), headers={"Authorization": "bearer " + token} )
     if res.status_code == 200:
         return res.json()
     
@@ -13,14 +13,14 @@ def create_post(data :postCreate , token):
     
     
 def delete_post(post_id :int , token):
-    res = requests.delete("{0}/posts/{1}".format(settings.POST_SERVICE_URL,post_id), headers={"Authorization": token} )
+    res = requests.delete("{0}/posts/{1}".format(settings.POST_SERVICE_URL,post_id), headers={"Authorization": "bearer " + token} )
     if res.status_code == 200:
         return res.json()
     
     handle_responses(res)
 
 def update_post(post_id :int, data :postUpdate, token):
-    res = requests.patch("{0}/posts/{1}".format(settings.POST_SERVICE_URL,post_id),data=data, headers={"Authorization": token} )
+    res = requests.patch("{0}/posts/{1}".format(settings.POST_SERVICE_URL,post_id), data=data.model_dump_json(), headers={"Authorization": "bearer " + token} )
     if res.status_code == 200:
         return res.json()
     
@@ -48,7 +48,7 @@ def get_posts_by_author(author: str):
     handle_responses(res)
     
 def get_users_posts(token:str):
-    res = requests.get("{0}/posts".format(settings.POST_SERVICE_URL), headers={"Authorization": token})
+    res = requests.get("{0}/posts".format(settings.POST_SERVICE_URL), headers={"Authorization": "bearer " + token})
     if res.status_code == 200:
         return res.json()
    

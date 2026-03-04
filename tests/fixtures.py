@@ -4,11 +4,29 @@ from fastapi.encoders import jsonable_encoder
 @pytest.fixture
 def mock_header():
     return {
-        "Authorization": "test_token"
+        "Authorization": "bearer test_token"
         
     }
 
 #########input data##############
+
+@pytest.fixture
+def valid_login_data():
+    return {
+    "username": "existing_user",
+    "password": "test_pass",
+    }
+
+@pytest.fixture
+def valid_register_data():
+    return {
+        "username": "valid",
+        "email": "validemail@gmail.com",
+        "full_name":"valid user",
+        "password": "test_pass",
+        "confirm_password": "test_pass"
+    }
+
 @pytest.fixture
 def valid_create_data():
     return {
@@ -32,6 +50,22 @@ def valid_update_data():
     }
 
 ########Responses#################
+
+@pytest.fixture
+def valid_login_response_data():
+    return jsonable_encoder({
+        "token_type": "bearer",
+        "access_token": "test_token",
+    })
+
+@pytest.fixture
+def valid_register_response_data():
+    return jsonable_encoder({
+        "username": "valid",
+        "email": "validemail@gmail.com",
+        "full_name": "valid user",
+    })
+
 @pytest.fixture
 def valid_create_response_data():
     return jsonable_encoder({

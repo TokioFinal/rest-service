@@ -9,7 +9,7 @@ router = APIRouter()
 
 @router.post("/register", response_model=authBaseRegister)
 def register(data: authRegister):
-    response = auth_service.register(data.model_dump_json())
+    response = auth_service.register(data)
     return response
 
 @router.post("/login", response_model = Token)
