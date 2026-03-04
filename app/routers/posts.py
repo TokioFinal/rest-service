@@ -9,7 +9,6 @@ router = APIRouter()
 
 @router.post("/post", response_model=postPublic)
 def create_post(data: postCreate, token: str = Depends(verify_token)):
-    print("inside post")
     response = post_service.create_post(data, token)
     return response
 
