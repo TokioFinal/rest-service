@@ -29,8 +29,8 @@ jobs:
           scan-type: 'fs'
           format: 'table'
           exit-code: 1
-          ignore-unfixed: true
-          severity: 'CRITICAL,HIGH'
+          ignore-unfixed: false
+          severity: 'LOW,MEDIUM,HIGH,CRITICAL'
     
   
   build-push:
