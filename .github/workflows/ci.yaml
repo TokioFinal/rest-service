@@ -17,6 +17,21 @@ jobs:
 
   test:
     uses: TokioFinal/tokio_reusable_workflows/.github/workflows/test_python_app.yaml@v2
+
+  trivy_scan:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Run Trivy scan
+        uses: aquasecurity/trivy-action@master
+        with:
+          scan-type: 'fs'
+          format: 'table'
+          exit-code: 1
+          ignore-unfixed: true
+          severity: 'CRITICAL,HIGH'
+    
   
   build-push:
     runs-on: ubuntu-latest
