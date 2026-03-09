@@ -33,19 +33,21 @@ jobs:
           ignore-unfixed: false
           severity: 'LOW,MEDIUM,HIGH,CRITICAL'
      
-  build:
+  build_prod:
     needs: [ test, determine-environment ] 
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-      - name: Build Production
-        if: ${{needs.determine-environment.outputs.selected-environment}} == 'production'
-        uses: ./.github/workflows/build_production.yaml
-      - name: Build Staging
-        if: ${{needs.determine-environment.outputs.selected-environment}} == 'staging'
-        uses: ./.github/workflows/build_staging.yaml
-      - name: Build Development
-        if: ${{needs.determine-environment.outputs.selected-environment}} == 'development'
-        uses: ./.github/workflows/build_development.yaml
+    if: ${{needs.determine-environment.outputs.selected-environment}} == 'production'
+    uses: ./.github/workflows/build_production.yaml
+  
+  build_staging:
+    needs: [ test, determine-environment ] 
+    if: ${{needs.determine-environment.outputs.selected-environment}} == 'staging'
+    uses: ./.github/workflows/build_staging.yaml
+  
+  build_development:
+    needs: [ test, determine-environment ] 
+    if: ${{needs.determine-environment.outputs.selected-environment}} == 'development'
+    uses: ./.github/workflows/build_development.yaml
+
+  
+   
     
