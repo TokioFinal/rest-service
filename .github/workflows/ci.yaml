@@ -35,5 +35,15 @@ jobs:
      
   build:
     needs: [ test, determine-environment ] 
-    uses: ./.github/workflows/build_${{needs.determine-environment.outputs.selected-environment}}.yaml
+    runs-on: ubuntu-latest
+    steps:
+      - name: Build Production
+        if: ${{needs.determine-environment.outputs.selected-environment}} == 'production'
+        uses: ./.github/workflows/build_production.yaml
+      - name: Build Production
+        if: ${{needs.determine-environment.outputs.selected-environment}} == 'staging'
+        uses: ./.github/workflows/build_staging.yaml
+      - name: Build Production
+        if: ${{needs.determine-environment.outputs.selected-environment}} == 'development'
+        uses: ./.github/workflows/build_development.yaml
     
