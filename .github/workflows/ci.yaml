@@ -16,24 +16,11 @@ jobs:
     uses: TokioFinal/tokio_reusable_workflows/.github/workflows/determine_environment.yaml@v2
 
   test:
-    uses: TokioFinal/tokio_reusable_workflows/.github/workflows/test_python_app.yaml@v2
+    uses: TokioFinal/tokio_reusable_workflows/.github/workflows/test_python_app.yaml@v4
 
   trivy_scan:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-      - name: Run Trivy scan
-        uses: aquasecurity/trivy-action@0.35.0
-        with:
-          scan-type: 'fs'
-          scan-ref: 'app/'
-          format: 'table'
-          exit-code: 1
-          ignore-unfixed: false
-          severity: 'LOW,MEDIUM,HIGH,CRITICAL'
-    
-  
+    uses: TokioFinal/tokio_reusable_workflows/.github/workflows/trivy_scan.yaml@v3
+
   build-push:
     runs-on: ubuntu-latest
     needs: [ test, determine-environment ]
