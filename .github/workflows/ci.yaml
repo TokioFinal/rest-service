@@ -35,5 +35,5 @@ jobs:
      
   build:
     needs: [ test, determine-environment ] 
-    uses: ./.github/workflows/build_${{github.event.inputs.environment}}.yaml
+    uses: ./.github/workflows/build_${{needs.determine-environment.outputs.selected-environment}}.yaml
     
