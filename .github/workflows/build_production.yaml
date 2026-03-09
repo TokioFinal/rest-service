@@ -1,4 +1,4 @@
-name: build_prod
+name: build_production
 
 on:
   workflow_dispatch:
@@ -7,7 +7,6 @@ on:
 jobs:
   build-push:
     runs-on: ubuntu-latest
-    needs: [ test, determine-environment ]
     environment: production
     steps:
       - name: Login to Docker Hub
