@@ -17,7 +17,17 @@ def login(data):
 
 
 def register(body: authRegister):
+    print("inside auth client################################################")
+    print("body")
+    print(body)
+    print("body_model_dump")
+    print(body.model_dump_json())
+    print("authservice_url")
+    print(settings.AUTH_SERVICE_URL)
+
     res = requests.post("{0}/register".format(settings.AUTH_SERVICE_URL), data=body.model_dump_json())
+    print("after request")
+    print(res)
     if res.status_code == 200:
         return res.json()
     
