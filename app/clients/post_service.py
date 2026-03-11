@@ -4,8 +4,8 @@ from app.schemas.auth import authRegister
 from app.schemas.posts import postCreate, postUpdate
 from app.utils import handle_responses
 
-def create_post(data :postCreate , token):
-    res = requests.post("{0}/post".format(settings.POST_SERVICE_URL), data=data.model_dump_json(), headers={"Authorization": "bearer " + token} )
+def create_post(data :postCreate):
+    res = requests.post("{0}/post".format(settings.POST_SERVICE_URL), data=data.model_dump_json())
     if res.status_code == 200:
         return res.json()
     
