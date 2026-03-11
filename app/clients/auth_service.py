@@ -25,7 +25,7 @@ def register(body: authRegister):
     print("authservice_url")
     print(settings.AUTH_SERVICE_URL)
 
-    res = requests.post("{0}/register".format(settings.AUTH_SERVICE_URL), json=body.model_dump_json())
+    res = requests.post("{0}/register".format(settings.AUTH_SERVICE_URL), json=body.model_dump_json(), headers={"Content-Type": "application/json"})
     print("after request")
     print(res)
     if res.status_code == 200:
