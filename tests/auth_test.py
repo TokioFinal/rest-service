@@ -12,12 +12,12 @@ from tests.fixtures import (valid_register_data,
                             valid_register_response_data,
                             valid_login_response_data,
                             valid_login_data,
-                            mock_header)
+                            mock_json_header)
 
 client = TestClient(app)
 #########################################################Register Test##########################################################
 @patch('app.clients.auth_service.requests.post')
-def test_register_user(mock_post, valid_register_data, valid_register_response_data):
+def test_register_user(mock_post, valid_register_data, valid_register_response_data, mock_json_header):
     #Mock setup
     mock_post.return_value.json.return_value = valid_register_response_data
     mock_post.return_value.status_code = 200
@@ -30,12 +30,12 @@ def test_register_user(mock_post, valid_register_data, valid_register_response_d
     assert data["username"] == valid_register_response_data["username"]
     assert data["email"] == valid_register_response_data["email"]
     assert data["full_name"] == valid_register_response_data["full_name"]
-    mock_post.assert_called_once_with(settings.AUTH_SERVICE_URL + client_url, data=authRegister(**valid_register_data).model_dump_json())
+    mock_post.assert_called_once_with(settings.AUTH_SERVICE_URL + client_url, data=authRegister(**valid_register_data).model_dump_json(), headers=mock_json_header)
 
 
 ######################################################## Login Test #############################################################
 @patch('app.clients.auth_service.requests.post')
-def test_register_login(mock_post, valid_login_data, valid_login_response_data):
+def test_login(mock_post, valid_login_data, valid_login_response_data):
     #Mock setup
     mock_post.return_value.json.return_value = valid_login_response_data
     mock_post.return_value.status_code = 200

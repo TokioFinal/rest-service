@@ -2,11 +2,14 @@ import pytest
 from fastapi.encoders import jsonable_encoder
 ########auth############
 @pytest.fixture
-def mock_header():
+def mock_auth_header():
     return {
         "Authorization": "bearer test_token"
-        
     }
+
+@pytest.fixture
+def mock_json_header():
+    return {'content-type': 'application/json'}
 
 #########input data##############
 

@@ -8,8 +8,8 @@ from app.schemas.posts import postPublic, postCreate, postUpdate
 router = APIRouter()
 
 @router.post("/post", response_model=postPublic)
-def create_post(data: postCreate, token: str = Depends(verify_token)):
-    response = post_service.create_post(data, token)
+def create_post(data: postCreate,token: str = Depends(verify_token)):
+    response = post_service.create_post(data=data, token=token)
     return response
 
 @router.delete("/posts/{post_id}")
