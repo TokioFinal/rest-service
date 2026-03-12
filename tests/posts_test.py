@@ -214,7 +214,7 @@ def test_valid_get_users_posts(mock_get, skip_auth, valid_get_response_data, moc
     #Mock setup
     mock_get.return_value.json.return_value = valid_get_response_data
     mock_get.return_value.status_code = 200
-    client_url = "/posts"
+    client_url = "/user_posts"
     #test
     response = client.get("/user_posts")
     #assert

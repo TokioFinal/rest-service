@@ -48,7 +48,7 @@ def get_posts_by_author(author: str):
     handle_responses(res)
     
 def get_users_posts(token:str):
-    res = requests.get("{0}/posts".format(settings.POST_SERVICE_URL), headers = auth_header(token))
+    res = requests.get("{0}/user_posts".format(settings.POST_SERVICE_URL), headers = auth_header(token))
     if res.status_code == 200:
         return res.json()
    
