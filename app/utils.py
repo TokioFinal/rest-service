@@ -33,3 +33,10 @@ def handle_responses(res):
             raise NotFoundException(detail=res.json()["detail"])
         case _:
             raise BadGatewayException(detail=res.json()["detail"])
+
+#################Headers####################  
+def json_header(): 
+    return {'content-type': 'application/json'}
+
+def auth_header(token):
+    return {'Authorization': 'bearer ' + token}
